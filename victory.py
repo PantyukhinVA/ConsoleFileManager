@@ -12,14 +12,24 @@ stars = {'Name1': '01.02.2000',
          'Name10': '09.03.1995',
          }
 
-months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
-days = {1: 'первое', 2: 'второе', 3: 'третье', 4: 'четвертое', 5: 'пятое', 6: 'шестое', 7: 'седьмое', 8: 'восьмое', 9: 'девятое', 10: 'десятое'}
+months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь',
+          'Декабрь']
+days = {1: 'первое', 2: 'второе', 3: 'третье', 4: 'четвертое', 5: 'пятое', 6: 'шестое', 7: 'седьмое', 8: 'восьмое',
+        9: 'девятое', 10: 'десятое'}
+
+
+def get_game_stars():
+    game_stars = random.sample(stars.keys(), 5)
+    game_stars = {k: v for k, v in stars.items() if k in game_stars}
+
+    return game_stars
+
 
 def game():
     while True:
         countCorrect = 0
-        game_stars = random.sample(stars.keys(), 5)
-        game_stars = {k: v for k, v in stars.items() if k in game_stars}
+
+        game_stars = get_game_stars()
 
         for star in game_stars:
             date_birthday = input('Введите дату рождения (dd.mm.yyyy): ' + star + ': ')
@@ -35,7 +45,8 @@ def game():
         print('Количество ошибок: ' + str(len(game_stars) - countCorrect))
 
         print('Процент правильных ответов: ' + str((countCorrect * 100) / len(stars)))
-        print('Процент неправильных ответов: ' + str(((len(game_stars) - countCorrect) * 100) / len(game_stars) - countCorrect))
+        print('Процент неправильных ответов: ' + str(
+            ((len(game_stars) - countCorrect) * 100) / len(game_stars) - countCorrect))
 
         if (input('Хотите начать игру сначала?: да/нет: ') != 'да'):
             break
