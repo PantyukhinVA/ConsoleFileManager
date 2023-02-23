@@ -2,18 +2,20 @@ balance = 0
 purchase_history = {}
 
 
-def add_balance(bal):
-    bal += int(input('Введите сумму пополнения : '))
+def add_balance():
+    global balance
+    balance += int(input('Введите сумму пополнения : '))
 
 
-def buy(bal):
+def buy():
+    global balance
     purchase = input('Введите покупку: ')
     cost = int(input('Стоимость? '))
 
-    if bal < cost:
+    if balance < cost:
         print('На балансе не достаточно средств!')
     else:
-        bal -= cost
+        balance -= cost
 
     purchase_history[purchase] = cost
 

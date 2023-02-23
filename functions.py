@@ -1,6 +1,7 @@
 import os
 import shutil
 import platform
+import messages
 
 __curDir = os.getcwd()
 
@@ -17,29 +18,33 @@ def correct_name(name):
     return __curDir + '\\' + name
 
 
-def create_new_dir():
-    name = input('Введите наименование новой папки: ')
+def create_new_dir(name=''):
+    if name == '':
+        name = input(messages.dialog_create_new_dir)
+
     path = correct_name(name)
     if os.path.exists(path):
-        return 'Папка уже существует на диске!'
+        return messages.dir_exists
 
     os.mkdir(path)
-    return f'Папка {name} успешно создана!'
+    return messages.dir_created(name)
 
 
-def del_file_or_dir():
-    name = input('Введите наименование удаляемого файла/папки: ')
+def del_file_or_dir(name=''):
+    if name == '':
+        name = input(messages.dialog_delete_file_or_dir)
+
     path = correct_name(name)
 
     if os.path.exists(path):
         if os.path.isdir(path):
             os.rmdir(path)
-            return f'Папка {name} успешкно удалена!'
+            return messages.dir_correct_deleted(name)
         elif os.path.isfile(path):
             os.remove(path)
-            return f'Файл {name} успешно удален!'
+            return messages.file_correct_deleted(name)
     else:
-        return 'Файл/папка отсутствую на диске!'
+        return messages.file_or_dir_not_exists
 
 
 def change_work_dir():
